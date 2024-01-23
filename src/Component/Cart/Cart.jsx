@@ -2,62 +2,99 @@
 import { useNavigate } from "react-router-dom";
 
 
-function Cart(props) {
-  const { selectedItems } = props.location.state;
-  console.log(selectedItems);
-
+function Cart({selectedItem}) {
+ 
   const navigate = useNavigate();
   function handleBackClick() {
     navigate("/menu");
   }
   return (
     <>
-      <div style={{ display: "flex",height : "500px" }}>
-        <button onClick={handleBackClick}>Back</button>
-        
-        <a
-          href="#"
-          className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-        >
-          <img
-            className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-            src="/docs/images/blog/image-4.jpg"
-            alt=""
-          />
-          <div className="flex flex-col justify-between p-4 leading-normal">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Noteworthy technology acquisitions 2021
-            </h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
-            </p>
-          </div>
-        </a>
-        <div style={{width : "50%",border : "1px solid black",borderRadius : "10px"}}>
-          <h1>PRICE DETAIL</h1>
-          <hr />
-          <div style={{display : "flex"}}>
-          <h2>Price (2 items)</h2>
-          <h2>₹12000</h2>
-          </div>
-          <div style={{display : "flex"}}>
-            <h2>Discount</h2>
-            <h2>₹8,659</h2>
-          </div>
-          <div style={{display : "flex"}}>
-            <h2>Delivery Charges</h2>
-            <h2>₹280Free</h2>
-          </div>
-          <div style={{display : "flex"}}>
-            <h2>Total Amount</h2>
-            <h2>₹2,884</h2>
-          </div>
-          <div style={{display : "flex"}}>
-            <p>You will save ₹8,659 on this order</p>
+    {console.log(selectedItem)}
+    <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+
+  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+  <div className="fixed inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+        <div className="pointer-events-auto w-screen max-w-md">
+          <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+            {/* cart part */}
+                <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                <div className="flex items-start justify-between">
+                  <h2 className="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+                  <div className="ml-3 flex h-7 items-center">
+                    <button type="button" className="relative -m-2 p-2 text-gray-400 hover:text-gray-500" onClick={handleBackClick}>
+                      <span className="absolute -inset-0.5"></span>
+                      <span className="sr-only">Close panel</span>
+                      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+  
+                <div className="mt-8">
+                  <div className="flow-root">
+                    <ul role="list" className="-my-6 divide-y divide-gray-200">
+                      <li className="flex py-6">
+                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                          <img src={selectedItem?.imageUrl} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." className="h-full w-full object-cover object-center" />
+                        </div>
+  
+                        <div className="ml-4 flex flex-1 flex-col">
+                          <div>
+                            <div className="flex justify-between text-base font-medium text-gray-900">
+                              <h3>
+                                <a href="#">{selectedItem?.name}</a>
+                              </h3>
+                              <p className="ml-4">₹{selectedItem?.price}</p>
+                            </div>
+                            <p className="mt-1 text-sm text-gray-500">{selectedItem?.ingredients.join()}</p>
+                          </div>
+                          <div className="flex flex-1 items-end justify-between text-sm">
+                            <p className="text-gray-500">Qty 1</p>
+  
+                            <div className="flex">
+                              <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+             
+          
+{/* part two */}
+            <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+              <div className="flex justify-between text-base font-medium text-gray-900">
+                <p>Subtotal</p>
+                <p>₹262.00</p>
+              </div>
+              <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+              <div className="mt-6">
+                <a href="#" className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+              </div>
+              <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                <p>
+                  or
+                  <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500" onClick={handleBackClick}>
+                    Continue Shopping
+                    <span aria-hidden="true"> &rarr;</span>
+                  </button>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+     
     </>
   );
 }

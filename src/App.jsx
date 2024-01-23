@@ -1,6 +1,6 @@
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import './App.css'
-import Menu from "./Component/Menu/Items/Menu"
+import FoodItems from "./Component/Menu/FoodItems/FoodItems"
 import Cart from "./Component/Cart/Cart"
 import Index from './Component/Navbar'
 import { useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import axios from 'axios'
 
 function App() {
   const [menuItems,setMenuItems] = useState([])
+  const [selectedItem,setSelectedItem] = useState(null);
 
   useEffect(()=>{
     axios.get("http://localhost:3000/data").then((res)=>{
@@ -16,13 +17,19 @@ function App() {
       setMenuItems(res.data)
     })
   },[])
+  const handleItemSelect = (item) => {
+    // Handle the selected item details
+    setSelectedItem(item);
+  };
   return (
     <>
     <BrowserRouter>
       <Routes>
+        
+       
         <Route path='/' element={<Index />}/>
-        <Route path='/menu' element={<Menu menuItems={menuItems}/>} />
-        <Route path='/cart' element={<Cart />} />
+        <Route path='/menu' element={<FoodItems menuItems={menuItems} onItemSelect={handleItemSelect}/>} />
+        <Route path='/cart' element={<Cart selectedItem={selectedItem} />} />
 
       </Routes>
     </BrowserRouter>
