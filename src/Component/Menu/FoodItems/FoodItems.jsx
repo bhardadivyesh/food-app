@@ -3,16 +3,14 @@ import { useState } from "react";
 import Navbar from "../../Navbar/Navbar";
 import { Link} from "react-router-dom";
 // import Spinner from "../../Spinner/Spinner";
-import { useNavigate } from "react-router-dom";
 function FoodItems({menuItems,onItemSelect}) {
   
   const [selectedItems,setSelectedItems] = useState([])
-  console.log(selectedItems);
-  const navigate = useNavigate();
+  
   const handleItemClick = (item) => {
     setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
     onItemSelect(item);
-    navigate("/cart")
+   
   };
   
   return (
