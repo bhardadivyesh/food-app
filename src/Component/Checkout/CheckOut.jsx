@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import * as React from "react";
+import { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -9,9 +11,14 @@ import DeliveryAddress from "./DeliveryAddress/DeliveryAddress"
 import OrderSummary from "./OrderSummary/OrderSummary"
 import PaymentMethod from "./PaymentMethod/PaymentMethod"
 const steps = ["Delivery Address", "Order Summary", "Payment method"];
-function CheckOut() {
+function CheckOut({ selectedItem }) {
+  
   const [activeStep, setActiveStep] = React.useState(0);  
   const [skipped, setSkipped] = React.useState(new Set());
+  const [selectedItems,setSelectedItems] = React.useState()
+  useEffect(() => {
+    setSelectedItems(selectedItem);
+  }, [selectedItem]);
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -80,7 +87,7 @@ function CheckOut() {
           {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
          
           {activeStep === 0 && <DeliveryAddress />}
-          {activeStep === 1 && <OrderSummary />}
+          {activeStep === 1 && <OrderSummary selectedItems={selectedItems} />}
           {activeStep === 2 && <PaymentMethod />}
 
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>

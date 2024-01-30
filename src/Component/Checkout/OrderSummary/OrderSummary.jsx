@@ -1,6 +1,35 @@
+import { useEffect, useState } from "react";
 
+/* eslint-disable react/prop-types */
+const OrderSummary = ({selectedItems}) => {
+    const [selectedItem,setSelectedItem] = useState([])
+    const [totalItem,setTotalItem] = useState(1)
+    const [price,setPrice] = useState(0)
+  
+    useEffect(()=>{
+        setSelectedItem(selectedItems)
+    },[selectedItems])
 
-const OrderSummary = () => {
+    function totalPrice () {
+      selectedItem.map((items)=>{
+        setPrice(items.price)
+        setPrice(totalItem * items.price)
+      })
+    }
+   
+
+    const handlePlus = () =>{
+      setTotalItem(totalItem + 1)
+     totalPrice()
+    }
+
+    const handleMinus = () =>{
+      if(totalItem > 0){
+        setTotalItem(totalItem - 1)
+      }
+      totalPrice()
+    }
+
   return (
     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
             <div className="flex items-start justify-between">
@@ -31,46 +60,59 @@ const OrderSummary = () => {
               </div>
             </div>
 {/* looping part */}
-           
-                <div  className="mt-8">
-                  <div className="flow-root">
-                    <ul role="list" className="-my-6 divide-y divide-gray-200">
-                      <li className="flex py-6">
-                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                          <img
-                            src={"items?.imageUrl"}
-                            alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <div className="ml-4 flex flex-1 flex-col">
-                          <div>
-                            <div className="flex justify-between text-base font-medium text-gray-900">
-                              <h3>
-                                <a href="#">{"items?.name"}</a>
-                              </h3>
-                              <p className="ml-4">₹{"items?.price"}</p>
-                            </div>
-                            <p className="mt-1 text-sm text-gray-500">
-                              {"items?.ingredients"}
-                            </p>
+           {selectedItem.map((items,index)=>{
+            return(
+                <div key={index}  className="mt-8">
+                <div className="flow-root">
+                  <ul role="list" className="-my-6 divide-y divide-gray-200">
+                    <li className="flex py-6">
+                      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                        <img
+                          src={items?.imageUrl}
+                          alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
+                          className="h-full w-full object-cover object-center"
+                        />
+                      </div>
+                      <div className="ml-4 flex flex-1 flex-col">
+                        <div>
+                          <div className="flex justify-between text-base font-medium text-gray-900">
+                            <h3>
+                              <a href="#">{items?.name}</a>
+                            </h3>
+                            <p className="ml-4">₹{price}</p>
                           </div>
-                          <div className="flex flex-1 items-end justify-between text-sm">
-                            <p className="text-gray-500">Qty 1</p>
-                            <div className="flex">
-                              <button
-                                type="button"
-                                className="font-medium text-indigo-600 hover:text-indigo-500"
+                          <p className="mt-1 text-sm text-gray-500">
+                            {items?.ingredients}
+                          </p>
+                        </div>
+                        <div className="flex flex-1 items-end justify-between text-sm">
+                          <p className="text-gray-500">Qty 1</p>
+                          {/* counter button */}
+                          <div style={{display : "flex"}}>
+                            <button style={{border : "2px solid black",borderRadius : "20px",width : "20px"}} onClick={handleMinus}>-</button>
+                            <p>{totalItem}</p>
+                            <button style={{border : "2px solid black",borderRadius : "20px",width : "20px"}} onClick={handlePlus}>+</button>
+                          </div>
+                          <div className="flex">
+                            <button
+                              type="button"
+                              className="font-medium text-indigo-600 hover:text-indigo-500"
                               >
-                                Remove
-                              </button>
-                            </div>
+                              Remove
+                            </button>
                           </div>
                         </div>
-                      </li>
-                    </ul>
-                  </div>
+                      </div>
+                    </li>
+                  </ul>
+                <hr />
                 </div>
+              </div>
+
+            )
+           })}
+            
+              
           </div>
   )
 }

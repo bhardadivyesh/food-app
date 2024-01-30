@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 function Cart({ selectedItem }) {
   const [selectedItems, setSelectedItems] = useState([]);
-  
   const totalPrice = selectedItems.reduce((total, items) => total + items.price, 0);
   
   useEffect(() => {

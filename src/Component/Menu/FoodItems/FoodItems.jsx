@@ -1,22 +1,24 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+// import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../Navbar/Navbar";
 import { Link} from "react-router-dom";
 // import Spinner from "../../Spinner/Spinner";
-function FoodItems({menuItems,onItemSelect}) {
-  
-  const [selectedItems,setSelectedItems] = useState([])
-  
+function FoodItems({menuItems,onItemSelect,selectedItem}) {
+
+  const [items,setItems] = useState([])
+  useEffect(()=>{
+    setItems(selectedItem)
+  },[selectedItem])
+
   const handleItemClick = (item) => {
-    setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
+    
     onItemSelect(item);
-   
   };
   
   return (
     <>
-      {/* { <Spinner />} */}
-      { <Navbar />}
+      { <Navbar items={items}/>}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
         {menuItems.map((item)=>{
           return(
@@ -31,6 +33,7 @@ function FoodItems({menuItems,onItemSelect}) {
                 alt=""
               />
             </Link>
+            
             <div className="p-5">
               <Link href="#">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -45,7 +48,6 @@ function FoodItems({menuItems,onItemSelect}) {
               <button  onClick={() => handleItemClick(item)}  className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
             Add to cart
             </button>
-          
             </div>
           </div>
             </>

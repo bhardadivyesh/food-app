@@ -2,7 +2,7 @@
 
 import cartImg from "../../assets/cartImg.png"
 import { useNavigate } from "react-router-dom";
-function Navbar() {
+function Navbar({items}) {
 
   const navigate = useNavigate()
   
@@ -18,6 +18,7 @@ function Navbar() {
             </span>
             <span className="self-center font-semibold whitespace-nowrap dark:text-white">
              <img src={cartImg} style={{height : "20px",cursor : "pointer"}} onClick={addToCart}/>
+             <label htmlFor="">{items?.length}</label>
             </span>
         </div>
       </nav>
