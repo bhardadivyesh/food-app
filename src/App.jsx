@@ -15,9 +15,6 @@ function App() {
   const [selectedItem,setSelectedItem] = useState([]);
 
   useEffect(()=>{
-    // axios.get("http://localhost:3000/data").then((res)=>{
-      // setMenuItems(res.data)
-    // })
     setMenuItems(data.data)
   },[data])
   const handleItemSelect = (item) => {

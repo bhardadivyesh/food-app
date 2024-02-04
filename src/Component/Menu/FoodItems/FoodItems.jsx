@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
-// import { useState } from "react";
 import { useEffect, useState } from "react";
 import Navbar from "../../Navbar/Navbar";
 import { Link} from "react-router-dom";
-// import Spinner from "../../Spinner/Spinner";
 function FoodItems({menuItems,onItemSelect,selectedItem}) {
 
   const [items,setItems] = useState([])
@@ -41,10 +39,9 @@ function FoodItems({menuItems,onItemSelect,selectedItem}) {
                 </h5>
               </Link>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of
-                2021 so far, in reverse chronological order.
+                {item.ingredients.join()}
               </p>
-              <h5>Price: {item.price}</h5>
+              <h5>Price: ₹{item.price}</h5>
               <button  onClick={() => handleItemClick(item)}  className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
             Add to cart
             </button>

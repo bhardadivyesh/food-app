@@ -7,9 +7,10 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import DeliveryAddress from "./DeliveryAddress/DeliveryAddress"
+// import DeliveryAddress from "./DeliveryAddress/DeliveryAddress"
 import OrderSummary from "./OrderSummary/OrderSummary"
 import PaymentMethod from "./PaymentMethod/PaymentMethod"
+import DeliveryAddressForm from "./DeliveryAddressForm.jsx/DeliveryAddressForm.jsx"
 const steps = ["Delivery Address", "Order Summary", "Payment method"];
 function CheckOut({ selectedItem }) {
   
@@ -51,6 +52,7 @@ function CheckOut({ selectedItem }) {
   const handleReset = () => {
     setActiveStep(0);
   };
+ 
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
@@ -86,7 +88,8 @@ function CheckOut({ selectedItem }) {
         <React.Fragment>
           {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
          
-          {activeStep === 0 && <DeliveryAddress />}
+          {/* {activeStep === 0 && <DeliveryAddress />} */}
+          {activeStep === 0 && <DeliveryAddressForm />}
           {activeStep === 1 && <OrderSummary selectedItems={selectedItems} />}
           {activeStep === 2 && <PaymentMethod />}
 

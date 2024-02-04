@@ -1,12 +1,35 @@
+import { useState } from "react";
+
 const DeliveryAddress = () => {
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+
+  console.log(deliveryAddress);
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setDeliveryAddress(values => ({...values, [name]: value}))
+  }
+  function handleDeliveryForm(e){
+    e.preventDefault();
+   setDeliveryAddress({
+    name : deliveryAddress.name,
+    number : deliveryAddress.number,
+    pincode : deliveryAddress.pincode,
+    comment : deliveryAddress.comment,
+    city : deliveryAddress.city
+   })
+  }
   return (
-    <form className="max-w-md mx-auto">
+  
+    <form className="max-w-md mx-auto" onSubmit={handleDeliveryForm}>
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
           <input
             type="text"
-            name="name"
             id="name"
+            name="name"
+            value={deliveryAddress.name}
+            onChange={handleChange}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required
@@ -23,6 +46,8 @@ const DeliveryAddress = () => {
             type="text"
             name="number"
             id="number"
+            value={deliveryAddress.number}
+            onChange={handleChange}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required
@@ -41,6 +66,8 @@ const DeliveryAddress = () => {
             type="number"
             name="pincode"
             id="pincode"
+            value={deliveryAddress.pincode}
+            onChange={handleChange}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required
@@ -74,8 +101,11 @@ const DeliveryAddress = () => {
           Address
         </label>
         <textarea
+        name="comment"
           id="comment"
           rows="4"
+          value={deliveryAddress.comment}
+          onChange={handleChange}
           className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
           placeholder="Address"
           required
@@ -87,6 +117,8 @@ const DeliveryAddress = () => {
             type="text"
             name="city"
             id="city"
+            value={deliveryAddress.city}
+            onChange={handleChange}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required
@@ -115,6 +147,7 @@ const DeliveryAddress = () => {
           </label>
         </div>
       </div>
+     <button type="submit">submit</button>
     </form>
   );
 };
