@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import Navbar from "../../FirstPage/Navbar";
+import Navbar from "../../../FirstPage/Navbar";
 import { Link} from "react-router-dom";
-function FoodItems({menuItems,onItemSelect,selectedItem}) {
+function PizzaItem({menuItems,onItemSelect,selectedItem}) {
   const [items,setItems] = useState([])
   useEffect(()=>{
     setItems(selectedItem)
@@ -14,7 +14,7 @@ function FoodItems({menuItems,onItemSelect,selectedItem}) {
     <>
       { <Navbar items={items}/>}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-        {menuItems.map((item)=>{
+        {menuItems?.pizza?.map((item)=>{
           return(
             <>
                <div key={item.id}
@@ -50,4 +50,4 @@ function FoodItems({menuItems,onItemSelect,selectedItem}) {
     </>
   );
 }
-export default FoodItems;
+export default PizzaItem;

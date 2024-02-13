@@ -9,7 +9,7 @@ function Body() {
     setName(name);
   }
   const handleSubmit = () =>{
-    navigate("/menu")
+    navigate("/pizza")
   }
  
   return (

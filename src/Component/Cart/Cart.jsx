@@ -9,7 +9,7 @@ function Cart({ selectedItem }) {
   }, [selectedItem]);
   const navigate = useNavigate();
   function handleBackClick() {
-    navigate("/menu");
+    navigate("/pizza");
   }
   function handleCheckoutClick(){
     navigate("/checkout")
