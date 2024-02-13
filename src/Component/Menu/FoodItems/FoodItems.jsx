@@ -1,19 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import Navbar from "../../Navbar/Navbar";
+import Navbar from "../../FirstPage/Navbar";
 import { Link} from "react-router-dom";
 function FoodItems({menuItems,onItemSelect,selectedItem}) {
-
   const [items,setItems] = useState([])
   useEffect(()=>{
     setItems(selectedItem)
   },[selectedItem])
-
   const handleItemClick = (item) => {
-    
     onItemSelect(item);
   };
-  
   return (
     <>
       { <Navbar items={items}/>}
@@ -31,7 +27,6 @@ function FoodItems({menuItems,onItemSelect,selectedItem}) {
                 alt=""
               />
             </Link>
-            
             <div className="p-5">
               <Link href="#">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -55,5 +50,4 @@ function FoodItems({menuItems,onItemSelect,selectedItem}) {
     </>
   );
 }
-
 export default FoodItems;

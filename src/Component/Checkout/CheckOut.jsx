@@ -7,13 +7,14 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-// import DeliveryAddress from "./DeliveryAddress/DeliveryAddress"
 import OrderSummary from "./OrderSummary/OrderSummary"
 import PaymentMethod from "./PaymentMethod/PaymentMethod"
 import DeliveryAddressForm from "./DeliveryAddressForm.jsx/DeliveryAddressForm.jsx"
 const steps = ["Delivery Address", "Order Summary", "Payment method"];
 function CheckOut({ selectedItem }) {
-  
+  const [address,setAddress] = React.useState("")
+  const [paymentMethod,setPaymentMethod] = React.useState('')
+  const [total,setTotal] = React.useState('')
   const [activeStep, setActiveStep] = React.useState(0);  
   const [skipped, setSkipped] = React.useState(new Set());
   const [selectedItems,setSelectedItems] = React.useState()
@@ -52,7 +53,15 @@ function CheckOut({ selectedItem }) {
   const handleReset = () => {
     setActiveStep(0);
   };
- 
+ const handleAddress = (item) => {
+  setAddress(item)
+};
+const handlePaymentMethod = (payment) =>{
+  setPaymentMethod(payment)
+}
+const handlePaymentTotal = (total) =>{
+  setTotal(total)
+}
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
@@ -77,7 +86,39 @@ function CheckOut({ selectedItem }) {
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
-            <h1>bharada divyesh</h1>
+           {/*  form start*/}
+           <div className="bg-white p-6 rounded-md shadow-md">
+      <h2 className="text-2xl font-semibold mb-4">Billing Address</h2>
+      <div className="mb-4">
+        <p className="text-sm font-medium text-gray-600">Name:- {address.name}</p>
+      </div>
+      <div className="mb-4">
+        <p className="text-sm font-medium text-gray-600">Address:-  {address.address} </p>
+      </div>
+      <div className="mb-4">
+        <p className="text-sm font-medium text-gray-600">City:- {address.city}</p>
+      </div>
+      <div className="mb-4">
+        <p className="text-sm font-medium text-gray-600">Locality:- {address.locality} </p>
+      </div>
+      <div className="mb-4">
+        <p className="text-sm font-medium text-gray-600">Phone Number:- {address.phoneNumber}
+       </p>
+      </div>
+      <div className="mb-4">
+        <p className="text-sm font-medium text-gray-600">Pincode:- {address.pincode} </p>
+      </div>
+      <div className="mb-4">
+        <p className="text-sm font-medium text-gray-600">State:- {address.state}</p>
+      </div>
+      <div className="mb-4">
+        <p className="text-sm font-medium text-gray-600">Payment Method:- {paymentMethod}</p>
+      </div>
+      <div className="mb-4">
+        <p className="text-sm font-medium text-gray-600">Price:- ₹{total}</p>
+      </div>
+    </div>
+           {/* form over */}
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
@@ -86,13 +127,9 @@ function CheckOut({ selectedItem }) {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
-         
-          {/* {activeStep === 0 && <DeliveryAddress />} */}
-          {activeStep === 0 && <DeliveryAddressForm />}
-          {activeStep === 1 && <OrderSummary selectedItems={selectedItems} />}
-          {activeStep === 2 && <PaymentMethod />}
-
+          {activeStep === 0 && <DeliveryAddressForm address={handleAddress} />}
+          {activeStep === 1 && <OrderSummary orderItems={selectedItems} address={address} totalRupee={handlePaymentTotal} />}
+          {activeStep === 2 && <PaymentMethod payment={handlePaymentMethod} />}
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"
@@ -108,7 +145,6 @@ function CheckOut({ selectedItem }) {
                 Skip
               </Button>
             )}
-
             <Button onClick={handleNext}>
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>

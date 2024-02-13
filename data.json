@@ -11,7 +11,8 @@
           "basil"
         ],
         "soldOut": false,
-        "price" : 100
+        "price" : 100,
+        "quantity": 1
       },
       {
         "id": 2,
@@ -26,7 +27,8 @@
           "artichoke"
         ],
         "soldOut": true,
-        "price" : 130
+        "price" : 130,
+        "quantity": 1
       },
       {
         "id": 3,
@@ -39,7 +41,8 @@
           "prosciutto"
         ],
         "soldOut": false,
-        "price" : 166
+        "price" : 166,
+        "quantity": 1
 
       },
       {
@@ -54,7 +57,8 @@
           "arugula"
         ],
         "soldOut": false,
-        "price" : 230
+        "price" : 230,
+        "quantity": 1
 
       },
       {
@@ -69,7 +73,8 @@
           "chili flakes"
         ],
         "soldOut": false,
-        "price" : 157
+        "price" : 157,
+        "quantity": 1
 
       },
       {
@@ -85,7 +90,8 @@
           "mushrooms"
         ],
         "soldOut": false,
-        "price" : 140
+        "price" : 140,
+        "quantity": 1
 
       },
       {
@@ -100,7 +106,8 @@
           "basil"
         ],
         "soldOut": false,
-        "price" : 240
+        "price" : 240,
+        "quantity": 1
 
       },
       {
@@ -116,7 +123,8 @@
           "capers"
         ],
         "soldOut": true,
-        "price" : 240
+        "price" : 240,
+        "quantity": 1
 
       },
       {
@@ -130,7 +138,8 @@
           "pepperoni"
         ],
         "soldOut": false,
-        "price" : 230
+        "price" : 230,
+        "quantity": 1
 
       },
       {
@@ -145,7 +154,8 @@
           "ham"
         ],
         "soldOut": false,
-        "price" : 199
+        "price" : 199,
+        "quantity": 1
 
       },
       {
@@ -160,7 +170,8 @@
           "mushrooms"
         ],
         "soldOut": false,
-        "price" : 244
+        "price" : 244,
+        "quantity": 1
 
       },
       {
@@ -176,7 +187,8 @@
           "artichoke"
         ],
         "soldOut": false,
-        "price" : 169
+        "price" : 169,
+        "quantity": 1
 
       },
       {
@@ -193,7 +205,8 @@
           "pepperoncini"
         ],
         "soldOut": true,
-        "price" : 270
+        "price" : 270,
+        "quantity": 1
 
       },
       {
@@ -208,7 +221,8 @@
           "arugula"
         ],
         "soldOut": false,
-        "price" : 200
+        "price" : 200,
+        "quantity": 1
 
       },
       {
@@ -224,7 +238,8 @@
           "spinach"
         ],
         "soldOut": false,
-        "price" :140
+        "price" :140,
+        "quantity": 1
 
       },
       {
@@ -239,7 +254,8 @@
           "parmesan"
         ],
         "soldOut": false,
-        "price" :157
+        "price" :157,
+        "quantity": 1
 
       },
       {
@@ -256,7 +272,8 @@
           "onions"
         ],
         "soldOut": false,
-        "price" : 130
+        "price" : 130,
+        "quantity": 1
 
       },
       {
@@ -272,207 +289,9 @@
           "bell peppers"
         ],
         "soldOut": false,
-        "price" : 190
-
-      }
-    ],
-    "chiness": [
-      {
-        "id": 1,
-        "name": "Margherita",
-        "unitPrice": 12,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-1.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "basil"
-        ],
-        "soldOut": false,
-        "price" : 100
-      },
-      {
-        "id": 2,
-        "name": "Capricciosa",
-        "unitPrice": 14,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-2.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "ham",
-          "mushrooms",
-          "artichoke"
-        ],
-        "soldOut": true,
-        "price" : 130
-      },
-      {
-        "id": 3,
-        "name": "Romana",
-        "unitPrice": 15,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-3.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "prosciutto"
-        ],
-        "soldOut": false,
-        "price" : 166
-
-      },
-      {
-        "id": 4,
-        "name": "Prosciutto e Rucola",
-        "unitPrice": 16,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-4.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "prosciutto",
-          "arugula"
-        ],
-        "soldOut": false,
-        "price" : 230
-
-      },
-      {
-        "id": 5,
-        "name": "Diavola",
-        "unitPrice": 16,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-5.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "spicy salami",
-          "chili flakes"
-        ],
-        "soldOut": false,
-        "price" : 157
-
-      },
-      {
-        "id": 6,
-        "name": "Vegetale",
-        "unitPrice": 13,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-6.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "bell peppers",
-          "onions",
-          "mushrooms"
-        ],
-        "soldOut": false,
-        "price" : 140
-
-      },
-      {
-        "id": 7,
-        "name": "Napoli",
-        "unitPrice": 16,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-7.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "fresh tomato",
-          "basil"
-        ],
-        "soldOut": false,
-        "price" : 240
-
-      },
-      {
-        "id": 8,
-        "name": "Siciliana",
-        "unitPrice": 16,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-8.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "anchovies",
-          "olives",
-          "capers"
-        ],
-        "soldOut": true,
-        "price" : 240
-
-      },
-      {
-        "id": 9,
-        "name": "Pepperoni",
-        "unitPrice": 14,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-9.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "pepperoni"
-        ],
-        "soldOut": false,
-        "price" : 230
-
-      },
-      {
-        "id": 10,
-        "name": "Hawaiian",
-        "unitPrice": 15,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-10.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "pineapple",
-          "ham"
-        ],
-        "soldOut": false,
-        "price" : 199
-
-      },
-      {
-        "id": 11,
-        "name": "Spinach and Mushroom",
-        "unitPrice": 15,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-11.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "spinach",
-          "mushrooms"
-        ],
-        "soldOut": false,
-        "price" : 244
-
-      },
-      {
-        "id": 12,
-        "name": "Mediterranean",
-        "unitPrice": 16,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-12.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "sun-dried tomatoes",
-          "olives",
-          "artichoke"
-        ],
-        "soldOut": false,
-        "price" : 169
-
-      },
-      {
-        "id": 13,
-        "name": "Greek",
-        "unitPrice": 16,
-        "imageUrl": "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-13.jpg",
-        "ingredients": [
-          "tomato",
-          "mozzarella",
-          "spinach",
-          "feta",
-          "olives",
-          "pepperoncini"
-        ],
-        "soldOut": true,
-        "price" : 270
+        "price" : 190,
+        "quantity": 1
 
       }
     ]
-    
   }

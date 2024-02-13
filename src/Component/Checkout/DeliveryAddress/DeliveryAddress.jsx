@@ -1,9 +1,6 @@
 import { useState } from "react";
-
 const DeliveryAddress = () => {
   const [deliveryAddress, setDeliveryAddress] = useState("");
-
-  console.log(deliveryAddress);
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -20,7 +17,6 @@ const DeliveryAddress = () => {
    })
   }
   return (
-  
     <form className="max-w-md mx-auto" onSubmit={handleDeliveryForm}>
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
@@ -151,5 +147,4 @@ const DeliveryAddress = () => {
     </form>
   );
 };
-
 export default DeliveryAddress;
