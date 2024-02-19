@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 function Body() {
   const [name, setName] = useState("");
   const navigate = useNavigate()

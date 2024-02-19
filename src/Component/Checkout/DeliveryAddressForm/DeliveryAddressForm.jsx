@@ -1,12 +1,17 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { dataContext } from "../../../context/context";
 function DeliveryAddressForm({ address }) {
+  const value = useContext(dataContext)
+  console.log(value);
   const [deliveryAddress, setDeliveryAddress] = useState([]);
   const [pincodeData, setPincodeData] = useState([]);
   const [addressData, setAddressData] = useState([]);
   const [selectedLocality, setSelectedLocality] = useState("");
+  const [pinCode,setPincode] = useState(null)
+ 
   const uniqueCity = Array.from(
     new Set(addressData?.PostOffice?.map((postOffice) => postOffice.District))
   );
@@ -28,36 +33,31 @@ function DeliveryAddressForm({ address }) {
   const handleLocalityChange = (event) => {
     setSelectedLocality(event.target.value); 
   };
+  const handlePincode = (e) =>{
+    setPincode(e.target.value)
+  }
+   
+  
   useEffect(() => {
+   let pincodeValue = parseInt(pinCode)
+    if(pinCode?.length == 6){
     axios
-      .get(`https://api.postalpincode.in/pincode/${deliveryAddress.pincode}`)
-      .then((res) => {
-        console.log(res.data);
-        setPincodeData(res.data);
+    .get(`https://api.postalpincode.in/pincode/${pincodeValue}`)
+    .then((res) => {
+      setPincodeData(res.data);
+    });
+    }
+    else if(!pinCode?.length < 6){
+      addressData?.PostOffice?.map((items)=>{
+        console.log(items.Circle);
+        console.log(items.District);
+        console.log(items);
+        items.Circle = ""
+        items.District = ""
       });
-
-    // fetch(`https://api.postalpincode.in/pincode/${deliveryAddress.pincode}`)
-    // .then((res) => {
-    //   res.json().then((res) => {
-    //     console.log(res);
-    //     setPincodeData(res)
-    //   });
-    // });
-
-    // const fetchData = () => {
-    //   const xhr = new XMLHttpRequest();
-    //   xhr.open('GET', `https://api.postalpincode.in/pincode/${deliveryAddress.pincode}`, true);
-    //   xhr.onload = function () {
-    //     if (xhr.status === 200) {
-    //       const responseData = JSON.parse(xhr.responseText);
-    //       // console.log(responseData);
-    //       setPincodeData(responseData);
-    //     }
-    //   };
-    //   xhr.send();
-    // };
-    // fetchData();
-  }, [deliveryAddress]);
+    }
+   
+  }, [pinCode]);
   useEffect(() => {
     pincodeData?.map((items) => {
       setAddressData(items);
@@ -121,6 +121,7 @@ function DeliveryAddressForm({ address }) {
           </label>
           <input
             type="number"
+            onKeyUp={handlePincode}
             {...register("pincode", {
               required: true,
               maxLength: 6,
@@ -147,10 +148,10 @@ function DeliveryAddressForm({ address }) {
             <option value="" {...register("locality", { required: false })}>
               Select Locality
             </option>
-            {addressData.PostOffice?.map((items) => {
+            {addressData?.PostOffice?.map((items) => {
               return (
                 <option key={items.Name} value={items.Name}>
-                  {items.Name}
+                  {items?.Name}
                 </option>
               );
             })}

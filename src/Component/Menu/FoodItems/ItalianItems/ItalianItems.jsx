@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
-import {useState,useEffect} from "react";
+import {useState,useEffect, useContext} from "react";
 import Navbar from "../../../FirstPage/Navbar";
 import { Link } from "react-router-dom";
+import { dataContext } from "../../../../context/context";
 
-function ItalianItems({menuItems,onItemSelect,selectedItem}){
+function ItalianItems({onItemSelect}){
+  const value = useContext(dataContext)
+  console.log(value);
     const [items,setItems] = useState([])
     useEffect(()=>{
-      setItems(selectedItem)
-    },[selectedItem])
+      setItems(value.selectedItem)
+    },[value.selectedItem])
     const handleItemClick = (item) => {
       onItemSelect(item);
     };
@@ -15,8 +18,7 @@ function ItalianItems({menuItems,onItemSelect,selectedItem}){
       <>
         { <Navbar items={items}/>}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            {console.log(menuItems.Italian)}
-          {menuItems?.Italian?.map((item)=>{
+          {value.menuItems?.Italian?.map((item)=>{
             return(
               <>
                  <div key={item.id}

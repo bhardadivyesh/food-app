@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
 import cartImg from "../../assets/cartImg.png"
 import { useNavigate,Link } from "react-router-dom";
-function Navbar({items}) {
+import { dataContext } from "../../context/context";
+import { useContext } from "react";
+function Navbar() {
+  const value = useContext(dataContext)
+  console.log(value.selectedItem.length);
   const navigate = useNavigate()
   const addToCart = () =>{
     navigate("/cart")
@@ -32,7 +36,7 @@ function Navbar({items}) {
     </div>
            {/* navbar over */}
             <span className="self-center font-semibold whitespace-nowrap dark:text-white">
-             <label>{items?.length}</label>
+             <label>{value.selectedItem?.length}</label>
              <img src={cartImg} style={{height : "20px",cursor : "pointer"}} onClick={addToCart}/>
             </span>
         </div>

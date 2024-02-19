@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-function Cart({ selectedItem }) {
-  const [selectedItems, setSelectedItems] = useState([]);
-  const totalPrice = selectedItems.reduce((total, items) => total + items.price, 0);
-  useEffect(() => {
-    setSelectedItems(selectedItem);
-  }, [selectedItem]);
+import { dataContext } from "../../context/context";
+function Cart() {
+  const value = useContext(dataContext)
+  console.log(value.selectedItem);
+
+  const totalPrice = value.selectedItem.reduce((total, items) => total + items.price, 0);
+ 
   const navigate = useNavigate();
   function handleBackClick() {
     navigate("/pizza");
@@ -28,7 +29,7 @@ function Cart({ selectedItem }) {
       </div>
       <div className="overflow-y-auto">
         <div className="px-6 py-4">
-          {selectedItems?.map((items, index) => {
+          {value.selectedItem?.map((items, index) => {
             return (
               <div key={index} className="flex items-start justify-between mb-4">
                 <div className="flex-shrink-0 w-20 h-20 overflow-hidden rounded-md border border-gray-200">

@@ -9,9 +9,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import OrderSummary from "./OrderSummary/OrderSummary"
 import PaymentMethod from "./PaymentMethod/PaymentMethod"
-import DeliveryAddressForm from "./DeliveryAddressForm.jsx/DeliveryAddressForm.jsx"
+import DeliveryAddressForm from "./DeliveryAddressForm/DeliveryAddressForm"
+import { dataContext } from "../../context/context";
 const steps = ["Delivery Address", "Order Summary", "Payment method"];
-function CheckOut({ selectedItem }) {
+function CheckOut() {
+  const value = React.useContext(dataContext)
+  console.log(value.selectedItem);
   const [address,setAddress] = React.useState("")
   const [paymentMethod,setPaymentMethod] = React.useState('')
   const [total,setTotal] = React.useState('')
@@ -19,8 +22,8 @@ function CheckOut({ selectedItem }) {
   const [skipped, setSkipped] = React.useState(new Set());
   const [selectedItems,setSelectedItems] = React.useState()
   useEffect(() => {
-    setSelectedItems(selectedItem);
-  }, [selectedItem]);
+    setSelectedItems(value.selectedItem);
+  }, [value.selectedItem]);
   const isStepOptional = (step) => {
     return step === 1;
   };

@@ -10,10 +10,10 @@ import data from "../data.json"
 import ItalianItems from './Component/Menu/FoodItems/ItalianItems/ItalianItems'
 import PastaItems from './Component/Menu/FoodItems/PastaItems/PastaItems'
 import SaladItems from './Component/Menu/FoodItems/SaladItems/SaladItems'
+import {dataContext} from "./context/context"
 function App() {
   const [menuItems,setMenuItems] = useState([])
   const [selectedItem,setSelectedItem] = useState([]);
-  console.log(selectedItem);
   useEffect(()=>{
     setMenuItems(data.data)
   },[data])
@@ -22,18 +22,20 @@ function App() {
   };
   return (
     <>
+    <dataContext.Provider value={{menuItems,selectedItem}}>
     <BrowserRouter>
       <Routes>
-       <Route path='/' element={[ <Navbar key="navbar" selectedItem={selectedItem} />,  <Body key="body"/> ]}/>
-        <Route path='/pizza' element={<PizzaItem menuItems={menuItems} onItemSelect={handleItemSelect} selectedItem={selectedItem} />} />
-        <Route path='/italian' element={<ItalianItems menuItems={menuItems} onItemSelect={handleItemSelect} selectedItem={selectedItem} />} />
-        <Route path='/pasta' element={<PastaItems menuItems={menuItems} onItemSelect={handleItemSelect} selectedItem={selectedItem} />} />
-        <Route path='/salad' element={<SaladItems menuItems={menuItems} onItemSelect={handleItemSelect} selectedItem={selectedItem} />} />
+       <Route path='/' element={[ <Navbar key="navbar" />,  <Body key="body"/> ]}/>
+        <Route path='/pizza' element={<PizzaItem onItemSelect={handleItemSelect} />} />
+        <Route path='/italian' element={<ItalianItems onItemSelect={handleItemSelect} />} />
+        <Route path='/pasta' element={<PastaItems onItemSelect={handleItemSelect} />} />
+        <Route path='/salad' element={<SaladItems onItemSelect={handleItemSelect} />} />
 
-        <Route path='/cart' element={<Cart selectedItem={selectedItem} />} />
-        <Route path='/checkout' element={<CheckOut selectedItem={selectedItem}/>} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/checkout' element={<CheckOut />} />
       </Routes>
     </BrowserRouter>
+    </dataContext.Provider>
      </>
   )
 }
