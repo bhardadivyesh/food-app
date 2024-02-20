@@ -14,22 +14,25 @@ import {dataContext} from "./context/context"
 function App() {
   const [menuItems,setMenuItems] = useState([])
   const [selectedItem,setSelectedItem] = useState([]);
+  const [items,setItems] = useState([])
+  console.log(items);
+  if(items.length > 2){
+    console.log("items length is 1");
+  }
   useEffect(()=>{
     setMenuItems(data.data)
-  },[data])
-  const handleItemSelect = (item) => {
-    setSelectedItem((prevSelectedItems) => [...prevSelectedItems, item]);
-  };
+    setSelectedItem((prevSelectedItems) => [...prevSelectedItems,items])
+  },[data,items])
   return (
     <>
-    <dataContext.Provider value={{menuItems,selectedItem}}>
+    <dataContext.Provider value={{menuItems,selectedItem,setItems}}>
     <BrowserRouter>
       <Routes>
-       <Route path='/' element={[ <Navbar key="navbar" />,  <Body key="body"/> ]}/>
-        <Route path='/pizza' element={<PizzaItem onItemSelect={handleItemSelect} />} />
-        <Route path='/italian' element={<ItalianItems onItemSelect={handleItemSelect} />} />
-        <Route path='/pasta' element={<PastaItems onItemSelect={handleItemSelect} />} />
-        <Route path='/salad' element={<SaladItems onItemSelect={handleItemSelect} />} />
+       <Route path='/' element={[ <Navbar key="navbar" />,<Body key="body"/> ]}/>
+        <Route path='/pizza' element={<PizzaItem  />} />
+        <Route path='/italian' element={<ItalianItems  />} />
+        <Route path='/pasta' element={<PastaItems  />} />
+        <Route path='/salad' element={<SaladItems />} />
 
         <Route path='/cart' element={<Cart />} />
         <Route path='/checkout' element={<CheckOut />} />

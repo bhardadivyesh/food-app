@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { dataContext } from "../../context/context";
 function Cart() {
   const value = useContext(dataContext)
-  console.log(value.selectedItem);
+  delete value.selectedItem[0]
+  console.log(value.selectedItem);  
 
   const totalPrice = value.selectedItem.reduce((total, items) => total + items.price, 0);
  
@@ -29,7 +30,7 @@ function Cart() {
       </div>
       <div className="overflow-y-auto">
         <div className="px-6 py-4">
-          {value.selectedItem?.map((items, index) => {
+           {value.selectedItem?.map((items, index) => {
             return (
               <div key={index} className="flex items-start justify-between mb-4">
                 <div className="flex-shrink-0 w-20 h-20 overflow-hidden rounded-md border border-gray-200">

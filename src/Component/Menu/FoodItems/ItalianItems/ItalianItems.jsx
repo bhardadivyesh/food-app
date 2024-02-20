@@ -4,16 +4,13 @@ import Navbar from "../../../FirstPage/Navbar";
 import { Link } from "react-router-dom";
 import { dataContext } from "../../../../context/context";
 
-function ItalianItems({onItemSelect}){
+function ItalianItems(){
   const value = useContext(dataContext)
   console.log(value);
     const [items,setItems] = useState([])
     useEffect(()=>{
       setItems(value.selectedItem)
     },[value.selectedItem])
-    const handleItemClick = (item) => {
-      onItemSelect(item);
-    };
     return (
       <>
         { <Navbar items={items}/>}
@@ -41,7 +38,7 @@ function ItalianItems({onItemSelect}){
                   {item.ingredients.join()}
                 </p>
                 <h5>Price: ₹{item.price}</h5>
-                <button  onClick={() => handleItemClick(item)}  className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
+                <button  onClick={() => value.setItems(item)}  className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
               Add to cart
               </button>
               </div>
