@@ -1,30 +1,35 @@
-import { useEffect, useState, } from "react";
+import { useEffect, useState, useContext } from "react";
+import { dataContext } from "../../../context/context";
 /* eslint-disable react/prop-types */
-const OrderSummary = ({ orderItems,address,totalRupee }) => {
-  const [items,setItems] = useState([])
-  const [totalPrice,setTotalPrice] = useState([])
-  let total = totalPrice?.reduce((previousTotal,currentItem)=>previousTotal + currentItem,0)
-  useEffect(()=>{
-    totalRupee(total)
-  },[total])
-  useEffect(()=>{
-    const newTotalPrice = items?.map((items)=>items.price * items.quantity)
-    setTotalPrice(newTotalPrice)
-  },[items])
+const OrderSummary = () => {
+  let value = useContext(dataContext);
+  const [items, setItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState([]);
+  let total = totalPrice?.reduce(
+    (previousTotal, currentItem) => previousTotal + currentItem,
+    0
+  );
   useEffect(() => {
-    setItems(orderItems)
-  }, [orderItems]);
+    value.setTotal(total);
+  }, [total]);
+  useEffect(() => {
+    const newTotalPrice = items?.map((items) => items.price * items.quantity);
+    setTotalPrice(newTotalPrice);
+  }, [items]);
+  useEffect(() => {
+    setItems(value.selectedItem);
+  }, [value.selectedItem]);
   const handlePlus = (id) => {
-    setItems(prevItems =>
-      prevItems.map(item =>
+    setItems((prevItems) =>
+      prevItems.map((item) =>
         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
   };
   const handleMinus = (id) => {
-    setItems(prevItems =>
-      prevItems?.map(item =>  
-      item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+    setItems((prevItems) =>
+      prevItems?.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity - 1 } : item
       )
     );
   };
@@ -32,19 +37,28 @@ const OrderSummary = ({ orderItems,address,totalRupee }) => {
     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
       <div className="flex items-start justify-between">
         <h2 className="text-lg font-medium text-gray-900" id="slide-over-title">
-          Deliver to : {address?.city} - {address?.pincode}
+          Deliver to : {value.deliveryAddress.city} -{" "}
+          {value.deliveryAddress.pincode}
         </h2>
         <div className="ml-3 flex h-7 items-center">
-          <button type="button" className="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
+          <button
+            type="button"
+            className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
+          >
             <span className="absolute -inset-0.5"></span>
             <span className="sr-only">Close panel</span>
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
               <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
       </div>
-      {/* looping part */}
       {items?.map((items, index) => {
         return (
           <div key={index} className="mt-8">
@@ -64,7 +78,9 @@ const OrderSummary = ({ orderItems,address,totalRupee }) => {
                         <h3>
                           <a href="#">{items?.name}</a>
                         </h3>
-                        <p className="ml-4">₹{totalPrice && totalPrice[index]}</p>
+                        <p className="ml-4">
+                          ₹{totalPrice && totalPrice[index]}
+                        </p>
                       </div>
                       <p className="mt-1 text-sm text-gray-500">
                         {items?.ingredients}
@@ -72,13 +88,27 @@ const OrderSummary = ({ orderItems,address,totalRupee }) => {
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <p className="text-gray-500"></p>
-                      {/* counter button */}
                       <div style={{ display: "flex" }}>
-                        <button style={{ border: "2px solid black", borderRadius: "20px", width: "20px" }} disabled={items?.quantity <= 1} onClick={() =>handleMinus(items?.id)} >
+                        <button
+                          style={{
+                            border: "2px solid black",
+                            borderRadius: "20px",
+                            width: "20px",
+                          }}
+                          disabled={items?.quantity <= 1}
+                          onClick={() => handleMinus(items?.id)}
+                        >
                           -
                         </button>
                         <p>{items?.quantity}</p>
-                        <button style={{ border: "2px solid black", borderRadius: "20px", width: "20px", }} onClick={() => handlePlus(items?.id)} >
+                        <button
+                          style={{
+                            border: "2px solid black",
+                            borderRadius: "20px",
+                            width: "20px",
+                          }}
+                          onClick={() => handlePlus(items?.id)}
+                        >
                           +
                         </button>
                       </div>
@@ -91,7 +121,9 @@ const OrderSummary = ({ orderItems,address,totalRupee }) => {
           </div>
         );
       })}
-      <h1 className="mb-4 text-3xl leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Subtotal : {total}</h1>
+      <h1 className="mb-4 text-3xl leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
+        Subtotal : {total}
+      </h1>
     </div>
   );
 };

@@ -7,23 +7,23 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import OrderSummary from "./OrderSummary/OrderSummary"
-import PaymentMethod from "./PaymentMethod/PaymentMethod"
-import DeliveryAddressForm from "./DeliveryAddressForm/DeliveryAddressForm"
+import OrderSummary from "./OrderSummary/OrderSummary";
+import PaymentMethod from "./PaymentMethod/PaymentMethod";
+import DeliveryAddressForm from "./DeliveryAddressForm/DeliveryAddressForm";
 import { dataContext } from "../../context/context";
 const steps = ["Delivery Address", "Order Summary", "Payment method"];
 function CheckOut() {
-  const value = React.useContext(dataContext)
-  console.log(value.selectedItem);
-  const [address,setAddress] = React.useState("")
-  const [paymentMethod,setPaymentMethod] = React.useState('')
-  const [total,setTotal] = React.useState('')
-  const [activeStep, setActiveStep] = React.useState(0);  
+  const value = React.useContext(dataContext);
+  const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const [selectedItems,setSelectedItems] = React.useState()
+  const [status, setStatus] = React.useState(false);
   useEffect(() => {
-    setSelectedItems(value.selectedItem);
-  }, [value.selectedItem]);
+    if (Object.keys(value.deliveryAddress).length === 0) {
+      setStatus(true);
+    } else {
+      setStatus(false);
+    }
+  }, [value.deliveryAddress]);
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -43,7 +43,7 @@ function CheckOut() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
   const handleSkip = () => {
-    if (!isStepOptional(activeStep)) { 
+    if (!isStepOptional(activeStep)) {
       throw new Error("You can't skip a step that isn't optional.");
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -56,15 +56,16 @@ function CheckOut() {
   const handleReset = () => {
     setActiveStep(0);
   };
- const handleAddress = (item) => {
-  setAddress(item)
-};
-const handlePaymentMethod = (payment) =>{
-  setPaymentMethod(payment)
-}
-const handlePaymentTotal = (total) =>{
-  setTotal(total)
-}
+
+  function handleClick(label) {
+    if (label == "Delivery Address") {
+      setActiveStep(0);
+    } else if (label == "Order Summary") {
+      setActiveStep(1);
+    } else if (label == "Payment method") {
+      setActiveStep(2);
+    }
+  }
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
@@ -80,7 +81,12 @@ const handlePaymentTotal = (total) =>{
             stepProps.completed = false;
           }
           return (
-            <Step key={label} {...stepProps}>
+            <Step
+              key={label}
+              {...stepProps}
+              onClick={() => handleClick(label)}
+              style={{ cursor: "pointer" }}
+            >
               <StepLabel {...labelProps}>{label}</StepLabel>
             </Step>
           );
@@ -89,39 +95,54 @@ const handlePaymentTotal = (total) =>{
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
-           {/*  form start*/}
-           <div className="bg-white p-6 rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Billing Address</h2>
-      <div className="mb-4">
-        <p className="text-sm font-medium text-gray-600">Name:- {address.name}</p>
-      </div>
-      <div className="mb-4">
-        <p className="text-sm font-medium text-gray-600">Address:-  {address.address} </p>
-      </div>
-      <div className="mb-4">
-        <p className="text-sm font-medium text-gray-600">City:- {address.city}</p>
-      </div>
-      <div className="mb-4">
-        <p className="text-sm font-medium text-gray-600">Locality:- {address.locality} </p>
-      </div>
-      <div className="mb-4">
-        <p className="text-sm font-medium text-gray-600">Phone Number:- {address.phoneNumber}
-       </p>
-      </div>
-      <div className="mb-4">
-        <p className="text-sm font-medium text-gray-600">Pincode:- {address.pincode} </p>
-      </div>
-      <div className="mb-4">
-        <p className="text-sm font-medium text-gray-600">State:- {address.state}</p>
-      </div>
-      <div className="mb-4">
-        <p className="text-sm font-medium text-gray-600">Payment Method:- {paymentMethod}</p>
-      </div>
-      <div className="mb-4">
-        <p className="text-sm font-medium text-gray-600">Price:- ₹{total}</p>
-      </div>
-    </div>
-           {/* form over */}
+            <div className="bg-white p-6 rounded-md shadow-md">
+              <h2 className="text-2xl font-semibold mb-4">Billing Address</h2>
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-600">
+                  Name:- {value.deliveryAddress.name}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-600">
+                  Address:- {value.deliveryAddress.address}{" "}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-600">
+                  City:- {value.deliveryAddress.city}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-600">
+                  Locality:- {value.deliveryAddress.locality}{" "}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-600">
+                  Phone Number:- {value.deliveryAddress.phoneNumber}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-600">
+                  Pincode:- {value.deliveryAddress.pincode}{" "}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-600">
+                  State:- {value.deliveryAddress.state}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-600">
+                  Payment Method:- {value.payment}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm font-medium text-gray-600">
+                  Price:- ₹{value.total}
+                </p>
+              </div>
+            </div>
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
@@ -130,9 +151,9 @@ const handlePaymentTotal = (total) =>{
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {activeStep === 0 && <DeliveryAddressForm address={handleAddress} />}
-          {activeStep === 1 && <OrderSummary orderItems={selectedItems} address={address} totalRupee={handlePaymentTotal} />}
-          {activeStep === 2 && <PaymentMethod payment={handlePaymentMethod} />}
+          {activeStep === 0 && <DeliveryAddressForm />}
+          {activeStep === 1 && <OrderSummary />}
+          {activeStep === 2 && <PaymentMethod />}
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"
@@ -148,7 +169,7 @@ const handlePaymentTotal = (total) =>{
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
+            <Button onClick={handleNext} disabled={status === true}>
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>
           </Box>

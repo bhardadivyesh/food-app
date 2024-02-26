@@ -15,17 +15,16 @@ function App() {
   const [menuItems,setMenuItems] = useState([])
   const [selectedItem,setSelectedItem] = useState([]);
   const [items,setItems] = useState([])
-  console.log(items);
-  if(items.length > 2){
-    console.log("items length is 1");
-  }
+  const [deliveryAddress,setDeliveryAddress] = useState([])
+  const [payment,setPayment] = useState("")
+  const [total,setTotal] = useState()
   useEffect(()=>{
     setMenuItems(data.data)
     setSelectedItem((prevSelectedItems) => [...prevSelectedItems,items])
   },[data,items])
   return (
     <>
-    <dataContext.Provider value={{menuItems,selectedItem,setItems}}>
+    <dataContext.Provider value={{menuItems,selectedItem,deliveryAddress,payment,total,setItems,setDeliveryAddress,setPayment,setTotal}}>
     <BrowserRouter>
       <Routes>
        <Route path='/' element={[ <Navbar key="navbar" />,<Body key="body"/> ]}/>

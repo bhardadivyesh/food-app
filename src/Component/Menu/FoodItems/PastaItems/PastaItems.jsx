@@ -6,7 +6,6 @@ import { dataContext } from "../../../../context/context";
 
 function PastaItems(){
   const value = useContext(dataContext)
-  console.log(value);
     const [items,setItems] = useState([])
     useEffect(()=>{
       setItems(value.selectedItem)

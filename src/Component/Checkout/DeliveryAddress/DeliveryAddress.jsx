@@ -4,17 +4,17 @@ const DeliveryAddress = () => {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setDeliveryAddress(values => ({...values, [name]: value}))
-  }
-  function handleDeliveryForm(e){
+    setDeliveryAddress((values) => ({ ...values, [name]: value }));
+  };
+  function handleDeliveryForm(e) {
     e.preventDefault();
-   setDeliveryAddress({
-    name : deliveryAddress.name,
-    number : deliveryAddress.number,
-    pincode : deliveryAddress.pincode,
-    comment : deliveryAddress.comment,
-    city : deliveryAddress.city
-   })
+    setDeliveryAddress({
+      name: deliveryAddress.name,
+      number: deliveryAddress.number,
+      pincode: deliveryAddress.pincode,
+      comment: deliveryAddress.comment,
+      city: deliveryAddress.city,
+    });
   }
   return (
     <form className="max-w-md mx-auto" onSubmit={handleDeliveryForm}>
@@ -97,7 +97,7 @@ const DeliveryAddress = () => {
           Address
         </label>
         <textarea
-        name="comment"
+          name="comment"
           id="comment"
           rows="4"
           value={deliveryAddress.comment}
@@ -143,7 +143,7 @@ const DeliveryAddress = () => {
           </label>
         </div>
       </div>
-     <button type="submit">submit</button>
+      <button type="submit">submit</button>
     </form>
   );
 };

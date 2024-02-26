@@ -6,7 +6,6 @@ import { dataContext } from "../../../../context/context";
 
 function ItalianItems(){
   const value = useContext(dataContext)
-  console.log(value);
     const [items,setItems] = useState([])
     useEffect(()=>{
       setItems(value.selectedItem)
@@ -51,5 +50,4 @@ function ItalianItems(){
       </>
     );
   }
-
 export default ItalianItems;

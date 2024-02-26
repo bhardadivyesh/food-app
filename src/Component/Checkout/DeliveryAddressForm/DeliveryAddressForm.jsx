@@ -1,17 +1,15 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { dataContext } from "../../../context/context";
-function DeliveryAddressForm({ address }) {
-  const value = useContext(dataContext)
-  console.log(value);
-  const [deliveryAddress, setDeliveryAddress] = useState([]);
+import { useNavigate } from "react-router-dom";
+function DeliveryAddressForm() {
+  const value = useContext(dataContext);
+  const navigate = useNavigate();
   const [pincodeData, setPincodeData] = useState([]);
   const [addressData, setAddressData] = useState([]);
-  const [selectedLocality, setSelectedLocality] = useState("");
-  const [pinCode,setPincode] = useState(null)
- 
+  const [pinCode, setPincode] = useState(null);
   const uniqueCity = Array.from(
     new Set(addressData?.PostOffice?.map((postOffice) => postOffice.District))
   );
@@ -23,40 +21,33 @@ function DeliveryAddressForm({ address }) {
     handleSubmit,
     formState: { errors },
   } = useForm({});
-  const onSubmit = (data) => setDeliveryAddress(data);
-  const handleFormSubmit = (data, city, district) => {
-    data.state = [district];
-    data.city = [city];
-    data.locality = [selectedLocality];
-    address(data, city, district);
+  const onSubmit = (data) => {
+    data.city = uniqueCity[0];
+    data.state = uniqueDistricts[0];
+    value.setDeliveryAddress(data);
   };
-  const handleLocalityChange = (event) => {
-    setSelectedLocality(event.target.value); 
+
+  const handlePincode = (e) => {
+    setPincode(e.target.value);
   };
-  const handlePincode = (e) =>{
-    setPincode(e.target.value)
-  }
-   
-  
+  const handlePrevious = () => {
+    navigate("/cart");
+  };
+
   useEffect(() => {
-   let pincodeValue = parseInt(pinCode)
-    if(pinCode?.length == 6){
-    axios
-    .get(`https://api.postalpincode.in/pincode/${pincodeValue}`)
-    .then((res) => {
-      setPincodeData(res.data);
-    });
-    }
-    else if(!pinCode?.length < 6){
-      addressData?.PostOffice?.map((items)=>{
-        console.log(items.Circle);
-        console.log(items.District);
-        console.log(items);
-        items.Circle = ""
-        items.District = ""
+    let pincodeValue = parseInt(pinCode);
+    if (pinCode?.length == 6) {
+      axios
+        .get(`https://api.postalpincode.in/pincode/${pincodeValue}`)
+        .then((res) => {
+          setPincodeData(res.data);
+        });
+    } else if (!pinCode?.length < 6) {
+      addressData?.PostOffice?.map((items) => {
+        items.Circle = "";
+        items.District = "";
       });
     }
-   
   }, [pinCode]);
   useEffect(() => {
     pincodeData?.map((items) => {
@@ -81,6 +72,7 @@ function DeliveryAddressForm({ address }) {
             {...register("name", {
               required: true,
               minLength: 3,
+              pattern: /^[A-Za-z\s]+$/,
             })}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
@@ -142,12 +134,9 @@ function DeliveryAddressForm({ address }) {
           </label>
           <select
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            onChange={handleLocalityChange}
-            value={selectedLocality}
+            {...register("locality", { required: true })}
           >
-            <option value="" {...register("locality", { required: false })}>
-              Select Locality
-            </option>
+            <option value="">Select Locality</option>
             {addressData?.PostOffice?.map((items) => {
               return (
                 <option key={items.Name} value={items.Name}>
@@ -188,7 +177,7 @@ function DeliveryAddressForm({ address }) {
           </label>
           <input
             type="text"
-            value={uniqueCity[0]}
+            defaultValue={uniqueCity[0]}
             {...register("city", { required: false })}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             readOnly
@@ -220,13 +209,16 @@ function DeliveryAddressForm({ address }) {
         <button
           type="submit"
           className="w-full px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none"
-          onClick={handleFormSubmit(
-            deliveryAddress,
-            uniqueCity,
-            uniqueDistricts
-          )}
         >
           Submit
+        </button>
+
+        <button
+          type="submit"
+          className="w-full px-4 py-2 mt-1 bg-blue-500 text-white rounded-md focus:outline-none"
+          onClick={handlePrevious}
+        >
+          &lt;-- Previous
         </button>
       </div>
     </form>

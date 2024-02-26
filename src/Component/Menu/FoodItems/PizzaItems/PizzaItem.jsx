@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { dataContext } from "../../../../context/context";
 function PizzaItem() {
   const value = useContext(dataContext);
-  console.log(value);
   const [items, setItems] = useState([]);
   useEffect(() => {
     setItems(value.selectedItem);
@@ -14,7 +13,7 @@ function PizzaItem() {
     <>
       {<Navbar items={items} />}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-        {value.menuItems?.pizza?.map((item) => {
+        {value.menuItems?.pizza?.map((item,index) => {
           return (
             <>
               <div
@@ -39,10 +38,10 @@ function PizzaItem() {
                   </p>
                   <h5>Price: ₹{item.price}</h5>
                   <button
-                    onClick={() => value.setItems(item)}
+                    onClick={() =>{value.setItems(item,index);}}
                     className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
                   >
-                    Add to cart
+                 add to cart
                   </button>
                 </div>
               </div>
