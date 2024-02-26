@@ -12,7 +12,7 @@ function PizzaItem() {
   return (
     <>
       {<Navbar items={items} />}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2" >
         {value.menuItems?.pizza?.map((item,index) => {
           return (
             <>
@@ -20,7 +20,7 @@ function PizzaItem() {
                 key={item.id}
                 className="max-w-sm bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
               >
-                <Link href="#">
+                <Link to="#">
                   <img
                     className="rounded-t-lg w-full"
                     src={item.imageUrl}
@@ -28,7 +28,7 @@ function PizzaItem() {
                   />
                 </Link>
                 <div className="p-5">
-                  <Link href="#">
+                  <Link to="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                       {item.name}
                     </h5>

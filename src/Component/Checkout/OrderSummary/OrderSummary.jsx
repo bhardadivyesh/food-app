@@ -26,11 +26,20 @@ const OrderSummary = () => {
       )
     );
   };
-  const handleMinus = (id) => {
+  // const handleMinus = (items) => {
+  //   setItems((prevItems) =>
+  //     prevItems?.map((item) =>
+  //       item.id === items.id ? { ...item, quantity: item.quantity - 1 } : item
+  //     )
+  //   );
+  // };
+  const handleMinus = (items) => {
     setItems((prevItems) =>
       prevItems?.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity - 1 } : item
-      )
+        item.id === items.id && item.quantity > 0
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      ).filter(item => item.quantity > 0)
     );
   };
   return (
@@ -95,8 +104,8 @@ const OrderSummary = () => {
                             borderRadius: "20px",
                             width: "20px",
                           }}
-                          disabled={items?.quantity <= 1}
-                          onClick={() => handleMinus(items?.id)}
+                          disabled={items?.quantity == 0}
+                          onClick={() => handleMinus(items)}
                         >
                           -
                         </button>
